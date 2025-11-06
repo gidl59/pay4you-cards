@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: pay4you-cards
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn "app:app" --workers 2 --bind 0.0.0.0:$PORT
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: BASE_URL
+        value: https://pay4you-cards.onrender.com
+      - key: APP_SECRET
+        generateValue: true
