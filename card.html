@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% block title %}{{ ag.name }} - Pay4You{% endblock %}
+{% block content %}
+<div class="cardh">
+  <div class="left">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="cardlogo" alt="logo">
+  </div>
+  <div class="right">
+    <h1>{{ ag.name }}</h1>
+    {% if ag.role %}<p class="role">{{ ag.role }}</p>{% endif %}
+    {% if ag.phone_mobile %}<p>📱 <a href="tel:{{ ag.phone_mobile | replace(' ', '') }}">{{ ag.phone_mobile }}</a></p>{% endif %}
+    {% if ag.phone_office %}<p>☎️ <a href="tel:{{ ag.phone_office | replace(' ', '') }}">{{ ag.phone_office }}</a></p>{% endif %}
+    {% if ag.email %}<p>✉️ <a href="mailto:{{ ag.email }}">{{ ag.email }}</a></p>{% endif %}
+    {% if ag.website %}<p>🌐 <a href="{{ ag.website }}" target="_blank" rel="noopener">{{ ag.website }}</a></p>{% endif %}
+
+    <div class="actions">
+      <a class="btn primary" href="{{ url_for('vcard', slug=ag.slug) }}">📥 Salva contatto (vCard)</a>
+      <a class="btn" href="{{ url_for('qr', slug=ag.slug) }}" target="_blank">🧾 QR personale</a>
+    </div>
+  </div>
+</div>
+<p class="hint">Suggerimento: programma l'NFC con l'URL <code>{{ base_url }}/{{ ag.slug }}</code></p>
+{% endblock %}
